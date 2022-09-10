@@ -1,2 +1,2 @@
-x = ["Hello", 4, 67, 78, "There", 67, 7]
-print(x.index(67))
+for i in range(1, 12):
+    print(i)
