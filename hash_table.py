@@ -13,7 +13,7 @@ class HashTable():
         ind = tot % self.MAX
         print(ind)
         return ind
-
+    '''Creates a key-value pair in memory'''
     def __setitem__(self, data, value):
         found = False
         h = self.hash_function(data)
