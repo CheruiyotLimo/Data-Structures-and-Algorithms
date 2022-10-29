@@ -2,8 +2,8 @@
 class Node():
     def __init__(self, prev, data, next):
         self.data = data
-        self.prev = None
-        self.next = None
+        self.prev = prev
+        self.next = next
     
 class CDLinkedList():
     def __init__(self):
@@ -18,25 +18,28 @@ class CDLinkedList():
         itr = self.head
         while itr:
             llstr += str(itr.data) + "-->"
-            itr = itr.next
-            if itr == self.tail:
+            if itr.next == self.head:
                 break
+            itr = itr.next
         print(llstr)
         return
 
     def add_to_beginning(self, data):
         if not self.head:
             node = Node(prev=None, data=data, next=None)
+            node.next = node
+            node.prev = node
             self.head = node
             self.tail = node
-            self.head.prev = self.tail
-            self.head.next = node      
+            self.tail.next = node
+            # print("here")
         else:
             node = Node(prev=self.tail, data=data, next=self.head)
             self.head.prev = node
             self.head = node
             self.tail.next = node
-        return
+            # print("there")
+            return
     
     def add_to_end(self, data):
         itr = self.head
@@ -46,23 +49,29 @@ class CDLinkedList():
                 self.tail.next = node
                 self.tail = node
                 self.head.prev = self.tail
+                # print("ender")
+                break
+                
             itr = itr.next
+            # print("Ender")
     
     def get_length(self):
         count = 0
         itr = self.head
         while itr:
-            itr = itr.next
             count += 1
-            if itr == self.tail:
+            if itr.next == self.head:
                 break
+            itr = itr.next
         return count    
 
     def insert_at(self, data, location):
+        if location < 0 or location > self.get_length():
+            raise Exception("Index Error: The index is unavailable.")
         if location == 0:
-            self.add_to_beginning(data=data)
+            return self.add_to_beginning(data=data)
         if location == self.get_length():
-            self.add_to_end(data=data)
+            return self.add_to_end(data=data)
         itr = self.head
         index = 0
         while itr:
@@ -74,11 +83,24 @@ class CDLinkedList():
             itr = itr.next
             index += 1
 
+    def remove_at(self, location):
+        if location < 0 or location > self.get_length():
+            raise Exception("Index Error: The index is unavailable.")
+        if location == 0:
+
+            
 ll = CDLinkedList()
 # ll.create(12)
 ll.add_to_beginning(5)
-ll.insert_at(121, 0)
+ll.add_to_beginning(8)
+ll.insert_at(121, 1)
 ll.insert_at(81, 0)
-# ll.add_to_beginning(22)
+ll.add_to_beginning(22)
+ll.add_to_beginning(56)
+ll.add_to_beginning(35)
+ll.add_to_end(102)
+# ll.printer()
+ll.insert_at(201, 5)
 ll.printer()
 print(ll.get_length())
+
