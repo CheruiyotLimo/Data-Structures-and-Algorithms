@@ -9,7 +9,7 @@ class Node():
 class DoubleLinkedList():
     def __init__(self):
         self.head = None
-
+        self.tail = None
     # def print(self):
     #     if self.head is None:
     #         print("The linked list is empty.")
@@ -136,14 +136,14 @@ dll = DoubleLinkedList()
 dll.add_to_beginning(6)
 dll.add_to_beginning(12)
 dll.add_to_beginning(87)
-dll.add_to_end(34)
-dll.insert_at(712, 0)
-dll.insert_at(526, 3)
-dll.insert_at(96, 4)
-dll.remove_at(2)
-dll.insert_datalist(list = [21, 56, 77, 89])
-dll.insert_after_value(data_after = 34, data_to_insert = 109)
-dll.remove_by_value(data = 34)
+# dll.add_to_end(34)
+# dll.insert_at(712, 0)
+# dll.insert_at(526, 3)
+# dll.insert_at(96, 4)
+# dll.remove_at(2)
+# dll.insert_datalist(list = [21, 56, 77, 89])
+# dll.insert_after_value(data_after = 34, data_to_insert = 109)
+# dll.remove_by_value(data = 34)
 # dll.print()
 dll.print_forward()
-dll.print_backward()
+# dll.print_backward()

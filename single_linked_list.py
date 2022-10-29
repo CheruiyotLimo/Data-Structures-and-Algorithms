@@ -6,6 +6,7 @@ class Node():
 class LinkedList():
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def print(self):
         if self.head is None:
@@ -21,12 +22,15 @@ class LinkedList():
     def add_to_beginning(self, data):
         node = Node(data = data, next = self.head)
         self.head = node
+        # self.head.next = node
     def add_to_end(self, data):
         node = Node(data = data, next = None)
         itr = self.head
         while itr.next:
             itr = itr.next
-        itr.next = node    
+        itr.next = node
+        self.tail = node
+        # self.tail.next = node
     def get_length(self):
         count = 0
         itr = self.head
@@ -103,9 +107,9 @@ ll.add_to_end(34)
 ll.insert_at(712, 0)
 ll.insert_at(526, 3)
 ll.insert_at(96, 4)
-ll.remove_at(2)
+# # ll.remove_at(2)
 ll.insert_datalist(list = [21, 56, 77, 89])
-ll.insert_after_value(data_after = 34, data_to_insert = 109)
-ll.remove_by_value(data = 34)
+# # ll.insert_after_value(data_after = 34, data_to_insert = 109)
+# # ll.remove_by_value(data = 34)
 ll.print()
-ll.get_length()
+# ll.get_length()
