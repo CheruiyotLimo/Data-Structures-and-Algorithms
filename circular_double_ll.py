@@ -84,11 +84,28 @@ class CDLinkedList():
             index += 1
 
     def remove_at(self, location):
-        if location < 0 or location > self.get_length():
+        if location < 0 or location >= self.get_length():
             raise Exception("Index Error: The index is unavailable.")
         if location == 0:
+            self.head = self.head.next
+            self.tail.next = self.head
+            self.head.prev = self.tail
+            return
+        elif location == self.get_length():
+            self.tail = self.tail.prev
+            self.head.prev = self.tail
+            self.tail.next = self.head
+            return
+        count = 0
+        itr = self.head
+        while itr:
+            if count == location-1:
+                itr.next = itr.next.next
+                itr.next.prev = itr
+                break
+            count += 1
+            itr = itr.next
 
-            
 ll = CDLinkedList()
 # ll.create(12)
 ll.add_to_beginning(5)
@@ -99,8 +116,11 @@ ll.add_to_beginning(22)
 ll.add_to_beginning(56)
 ll.add_to_beginning(35)
 ll.add_to_end(102)
-# ll.printer()
-ll.insert_at(201, 5)
 ll.printer()
+# ll.insert_at(201, 5)
+# ll.remove_at(0)
+ll.remove_at(7)
+ll.printer()
+
 print(ll.get_length())
 
