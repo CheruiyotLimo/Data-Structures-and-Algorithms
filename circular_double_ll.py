@@ -1,4 +1,8 @@
   
+from os import remove
+from random import randint
+
+
 class Node():
     def __init__(self, prev, data, next):
         self.data = data
@@ -106,6 +110,52 @@ class CDLinkedList():
             count += 1
             itr = itr.next
 
+    def generate(self, n, min, max):
+        self.head = None
+        self.tail = None
+        for _ in range(n):
+            self.add_to_beginning(randint(min, max))
+        return
+    #Solving several challenging interview questions
+
+    #Q1 Removing any duplicates from a linked list
+    #Method 1
+    def remove_duplicates(self):
+        itr = self.head
+        checklist = [itr.data]
+        count = 0
+        while itr:
+            if self.head == None:
+                return "The linked list is empty."
+            else:
+                if itr.next.data in checklist:
+                    itr.next = itr.next.next
+                    itr.next.prev = itr
+                else:
+                    checklist.append(itr.next.data)
+                    itr = itr.next
+            if itr.next == self.head:
+                break
+    #Method2 Solves without using a temporary storage i.e. the checklist above.
+    #time complexity n^2 but space coplexity is 0(1)
+    def remove_duplicates_2(self):
+        if self.head == None:
+            return
+        itr = self.head
+        while itr:
+            ath = itr
+            while ath:
+                if itr.data == ath.next.data:
+                    ath.next = ath.next.next
+                    ath.next.prev = ath
+                else:
+                    ath = ath.next
+                if ath.next == self.head:
+                    break
+            itr = itr.next
+            if itr.next == self.head:
+                    break
+
 ll = CDLinkedList()
 # ll.create(12)
 ll.add_to_beginning(5)
@@ -114,13 +164,23 @@ ll.insert_at(121, 1)
 ll.insert_at(81, 0)
 ll.add_to_beginning(22)
 ll.add_to_beginning(56)
-ll.add_to_beginning(35)
+ll.add_to_beginning(5)
+ll.add_to_beginning(5)
+ll.add_to_end(5)
+ll.add_to_end(22)
+ll.add_to_end(44)
 ll.add_to_end(102)
-ll.printer()
+ll.add_to_end(102)
+ll.add_to_end(102)
 # ll.insert_at(201, 5)
 # ll.remove_at(0)
-ll.remove_at(7)
+# ll.remove_at(12)
+# ll.remove_at(11)
 ll.printer()
 
+# ll.generate(11, 0, 100)
+# ll.printer()
 print(ll.get_length())
-
+ll.remove_duplicates_2()
+# ll.remove_duplicates()
+ll.printer()
