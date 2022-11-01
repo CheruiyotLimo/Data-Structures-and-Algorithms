@@ -1,5 +1,4 @@
-  
-from os import remove
+
 from random import randint
 from tkinter import N
 
@@ -15,7 +14,7 @@ class CDLinkedList():
         self.head = None
         self.tail = None
     
-    def printer(self):
+    def __str__(self):
         if self.head is None:
             print("The linked list is empty")
             return
@@ -26,8 +25,8 @@ class CDLinkedList():
             if itr.next == self.head:
                 break
             itr = itr.next
-        print(llstr)
-        return
+        # print(llstr)
+        return llstr
 
     def add_to_beginning(self, data):
         if not self.head:
@@ -54,12 +53,9 @@ class CDLinkedList():
                 self.tail.next = node
                 self.tail = node
                 self.head.prev = self.tail
-                # print("ender")
                 break
-                
             itr = itr.next
-            # print("Ender")
-    
+        return
     def get_length(self):
         count = 0
         itr = self.head
@@ -116,7 +112,7 @@ class CDLinkedList():
         self.tail = None
         for _ in range(n):
             self.add_to_beginning(randint(min, max))
-        return
+        return 
     #Solving several challenging interview questions
 
     #Q1 Removing any duplicates from a linked list
@@ -211,6 +207,30 @@ class CDLinkedList():
         # return
         if self.tail.next is not None:
             self.tail.next = None
+    
+    #Q4 Sum of two numbers represented as linked lists returning it as another linked list.
+def sum_of_ll(list1, list2):
+    itr = list1.head
+    itr2 = list2.head
+    carry = 0
+    new_ll = CDLinkedList()
+    while itr or itr2:
+        result = carry
+        if itr:
+            result += itr.data
+            itr = itr.next
+        if itr2:
+            if itr2 == list2.tail:
+                result += itr2.data
+                new_ll.add_to_beginning(int(result))        #It should print the new linked in reverse order
+                return new_ll                               #so I should use the add_to_end method but it seems
+            result += itr2.data                             #bugged at the moment. Will investigate.
+            itr2 = itr2.next
+        new_ll.add_to_beginning(int(result % 10))
+        carry = result / 10
+        if itr2.next == list2.head.next:
+            break
+    return new_ll
 
 ll = CDLinkedList()
 # ll.create(12)
@@ -228,18 +248,23 @@ ll.add_to_end(44)
 ll.add_to_end(102)
 ll.add_to_end(102)
 ll.add_to_end(102)
-# ll.insert_at(201, 5)
-# ll.remove_at(0)
-# ll.remove_at(12)
-# ll.remove_at(11)
-ll.printer()
+print(ll)
 
-# ll.generate(11, 0, 100)
+a = CDLinkedList()
+b = CDLinkedList()
+a.generate(3, 0, 9)
+b.generate(3, 0, 9)
+print(a)
+print(b)
+# list2 = ll.generate(3, 0, 10)
 # ll.printer()
 print(ll.get_length())
-# ll.remove_duplicates_2()
-# ll.remove_duplicates()
-ll.printer()
-print(ll.two_pointer(4))
-ll.partitioner(40)
-ll.printer()
+# ll.printer()
+# # ll.remove_duplicates_2()
+# # ll.remove_duplicates()
+# ll.printer()
+# print(ll.two_pointer(4))
+# ll.partitioner(40)
+# ll.printer()
+# print(sum_of_ll(list1, list2))
+print(sum_of_ll(a, b))
