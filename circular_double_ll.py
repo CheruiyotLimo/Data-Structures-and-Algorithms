@@ -1,6 +1,7 @@
   
 from os import remove
 from random import randint
+from tkinter import N
 
 
 class Node():
@@ -156,6 +157,61 @@ class CDLinkedList():
             if itr.next == self.head:
                     break
 
+    #Q2 
+    #Return Nth element from the last.
+    #method 1
+    def return_from_last(self, n):
+        if self.head == None:
+            return
+        itr = self.tail
+        count = 0
+        while itr:
+            if count == n-1:
+                return itr.data
+            count += 1
+            itr = itr.prev
+            if itr.prev == self.tail:
+                break
+    
+    #Method 2
+    def two_pointer(self, n):
+        if self.head == None:
+            return
+        itr1 = self.head
+        itr2 = self.head
+        while n:
+            n -=1
+            itr1 = itr1.next
+            
+        while itr1 is not self.tail:
+            itr1 = itr1.next
+            itr2 = itr2.next
+        return itr2.next.data
+
+    #Q3 Partition a linked list around  value.
+    #Method1
+    def partitioner(self, val):
+        itr = self.head
+        self.tail = self.head
+        while itr:
+            next_node = itr.next
+            itr.next = None
+            if itr.data < val:
+                itr.next = self.head
+                self.head = itr
+                self.tail.next = self.head
+                self.head.prev = self.tail
+            else:
+                self.tail.next = itr
+                self.tail = itr
+                self.tail.next = self.head
+            itr = itr.next
+            # if itr.next == self.tail:
+            #     break
+        # return
+        if self.tail.next is not None:
+            self.tail.next = None
+
 ll = CDLinkedList()
 # ll.create(12)
 ll.add_to_beginning(5)
@@ -181,6 +237,9 @@ ll.printer()
 # ll.generate(11, 0, 100)
 # ll.printer()
 print(ll.get_length())
-ll.remove_duplicates_2()
+# ll.remove_duplicates_2()
 # ll.remove_duplicates()
+ll.printer()
+print(ll.two_pointer(4))
+ll.partitioner(40)
 ll.printer()
