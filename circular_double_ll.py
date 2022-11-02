@@ -202,9 +202,6 @@ class CDLinkedList():
                 self.tail = itr
                 self.tail.next = self.head
             itr = itr.next
-            # if itr.next == self.tail:
-            #     break
-        # return
         if self.tail.next is not None:
             self.tail.next = None
     
@@ -228,12 +225,11 @@ def sum_of_ll(list1, list2):
             itr2 = itr2.next
         new_ll.add_to_beginning(int(result % 10))
         carry = result / 10
-        if itr2.next == list2.head.next:
+        if itr2 == list2.head:
             break
     return new_ll
 
 ll = CDLinkedList()
-# ll.create(12)
 ll.add_to_beginning(5)
 ll.add_to_beginning(8)
 ll.insert_at(121, 1)
@@ -256,8 +252,6 @@ a.generate(3, 0, 9)
 b.generate(3, 0, 9)
 print(a)
 print(b)
-# list2 = ll.generate(3, 0, 10)
-# ll.printer()
 print(ll.get_length())
 # ll.printer()
 # # ll.remove_duplicates_2()
