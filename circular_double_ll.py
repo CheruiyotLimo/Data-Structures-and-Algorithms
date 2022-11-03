@@ -56,7 +56,7 @@ class CDLinkedList():
                 break
             itr = itr.next
         return
-    def get_length(self):
+    def __len__(self):
         count = 0
         itr = self.head
         while itr:
@@ -67,11 +67,11 @@ class CDLinkedList():
         return count    
 
     def insert_at(self, data, location):
-        if location < 0 or location > self.get_length():
+        if location < 0 or location > len(self):
             raise Exception("Index Error: The index is unavailable.")
         if location == 0:
             return self.add_to_beginning(data=data)
-        if location == self.get_length():
+        if location == len(self):
             return self.add_to_end(data=data)
         itr = self.head
         index = 0
@@ -85,7 +85,7 @@ class CDLinkedList():
             index += 1
 
     def remove_at(self, location):
-        if location < 0 or location >= self.get_length():
+        if location < 0 or location >= len(self):
             raise Exception("Index Error: The index is unavailable.")
         if location == 0:
             self.head = self.head.next
@@ -229,6 +229,23 @@ def sum_of_ll(list1, list2):
             break
     return new_ll
 
+    #Q5 Find if two linked lists intersect and if yes return the first intersecting value.
+def intersector(listA, listB):
+    if listA.tail is listB.tail:
+        shorter = listA if len(listA) < len(listB) else listB
+        longer = listB if len(listB) < len(listA) else listA
+        diff = longer - shorter
+        longer_node = longer.head
+        shorter_node = shorter.head
+        for _ in range(diff):
+            longer_node = longer.next
+
+        while longer_node is not shorter_node:
+            longer_node = longer_node.next
+            shorter_node = shorter_node.next
+        return longer_node
+    return False
+
 ll = CDLinkedList()
 ll.add_to_beginning(5)
 ll.add_to_beginning(8)
@@ -252,7 +269,7 @@ a.generate(3, 0, 9)
 b.generate(3, 0, 9)
 print(a)
 print(b)
-print(ll.get_length())
+print(len(ll))
 # ll.printer()
 # # ll.remove_duplicates_2()
 # # ll.remove_duplicates()
