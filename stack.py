@@ -105,6 +105,21 @@ class Stack2():
     def delete(self):
         self.arr.head = None
 
+#Q1 Valid parenthesis if every left parenthesis "(" is closed by a right one ")"
+def valid_parenthesis(string: str):
+    stq = Stack2()
+    for i in range(len(string)):
+        if string[i] == "(":
+            stq.push(i)
+        else:
+            if stq.isEmpty():
+                return False
+            stq.pop()
+    if stq.isEmpty():
+        return True
+    return False       
+
+
 st = Stack2()
 print(st.isEmpty())
 st.push(1)
@@ -116,3 +131,4 @@ print(st)
 print(st.pop())
 print(st.peek())
 print(st)
+print(valid_parenthesis("(()))("))
