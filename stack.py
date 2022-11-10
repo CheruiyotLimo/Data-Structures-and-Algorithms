@@ -165,15 +165,70 @@ class MultiStack():
             value = self.cust_list[self.is_top_element(stack_num)]
             return value
 
-st = Stack2()
-print(st.isEmpty())
-st.push(1)
-st.push(2)
-st.push(3)
-st.push(5)
-print(st)
-# print(len(st))
+#Q3 Stack Min. A method that can find the minimum stack element in 0(1) time. Decided to use a 'mini-stack' 
+class llStack():                                            #for the minimums within the main stack class.
+    def __init__(self):
+        self.head = None
+
+    def __str__(self):
+        llstr = ""
+        itr = self.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+        return llstr
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class MinStack():
+    def __init__(self):
+        self.arr = llStack()
+        self.mini = None
+
+    def min(self):
+        if not self.mini:
+            return None
+        return self.mini.data
+    
+    def push(self, data):
+        if not self.arr.head:
+            node = Node(data)
+            self.arr.head = node
+            self.mini = node
+        else:
+            node = Node(data)
+            node.next = self.arr.head
+            self.arr.head = node
+            if self.arr.head.data < self.mini.data:
+                node.next = self.mini
+                self.mini = node
+            return
+    
+    def pop(self):
+        if self.arr.head == None:
+            return "There is nothing to return"
+        val = self.arr.head.data
+        itr = self.arr.head
+        self.arr.head = itr.next
+        if val == self.mini.data:
+            self.mini = self.mini.next
+            # return self.mini
+        return val
+
+
+st = MinStack()
+print(st.min())
+st.push(82)
+# st.push(58)
+# st.push(20)
+# st.push(70)
+# st.push(65)
+# st.push(15)
+# st.push(13)
 print(st.pop())
-print(st.peek())
-print(st)
-print(valid_parenthesis("(()))("))
+print(st.min())
+print(st.pop())
+print(st.min())
