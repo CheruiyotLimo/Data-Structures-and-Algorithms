@@ -165,20 +165,56 @@ class Queue3():
         self.start = -1
         self.top = -1
 
+#Q1
+#Three in one. Convert a python list into three stacks
+class MultiStack():
+    def __init__(self, stacksize) -> None:
+        self.number_stacks = 3
+        self.cust_list = [0] * (self.number_stacks * stacksize)
+        self.sizes = [0] * self.number_stacks
+        self.stacksize = stacksize
 
-qu = Queue3(3)
-print(qu.is_full())
-print(qu.is_empty())
-qu.enqueue(5)
-qu.enqueue(7)
-# qu.enqueue(8)
-qu.enqueue(9)
-print(qu.dequeue())
-print(qu.peek())
-# print(qu.dequeue())
-# print(qu.dequeue())
-# print(qu.dequeue())
-qu.delete()
-print(qu)
-print(qu.is_full())
-print(qu.is_empty())
+    def is_full(self, stack_num):
+        if self.sizes[stack_num] == self.stacksize:
+            return True
+        return False
+    
+    def is_empty(self, stack_num):
+        if self.sizes[stack_num] == 0:
+            return True
+        return False
+    
+    def is_top_element(self, stack_num):
+        offset = stack_num * self.stacksize
+        return offset + self.sizes[stack_num]-1
+
+    def push(self, data, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            self.sizes[stack_num] += 1
+            self.cust_list[self.is_top_element(stack_num)] = data
+
+    def pop(self, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            value = self.cust_list[self.is_top_element(stack_num)]
+            self.cust_list[self.is_top_element(stack_num)] = 0
+            self.sizes[stack_num] -= 1
+            return value
+
+    def peek(self, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            value = self.cust_list[self.is_top_element(stack_num)]
+            return value
+
+
+qu = MultiStack(3)
+print(qu.is_full(1))
+qu.push(4, 1)
+qu.push(6, 1)
+qu.push(5, 1)
+print(qu.is_full(1))
