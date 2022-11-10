@@ -119,6 +119,51 @@ def valid_parenthesis(string: str):
         return True
     return False       
 
+#Q2
+#Three in one. Convert a python list into three stacks
+class MultiStack():
+    def __init__(self, stacksize) -> None:
+        self.number_stacks = 3
+        self.cust_list = [0] * (self.number_stacks * stacksize)
+        self.sizes = [0] * self.number_stacks
+        self.stacksize = stacksize
+
+    def is_full(self, stack_num):
+        if self.sizes[stack_num] == self.stacksize:
+            return True
+        return False
+    
+    def is_empty(self, stack_num):
+        if self.sizes[stack_num] == 0:
+            return True
+        return False
+    
+    def is_top_element(self, stack_num):
+        offset = stack_num * self.stacksize
+        return offset + self.sizes[stack_num]-1
+
+    def push(self, data, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            self.sizes[stack_num] += 1
+            self.cust_list[self.is_top_element(stack_num)] = data
+
+    def pop(self, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            value = self.cust_list[self.is_top_element(stack_num)]
+            self.cust_list[self.is_top_element(stack_num)] = 0
+            self.sizes[stack_num] -= 1
+            return value
+
+    def peek(self, stack_num):
+        if self.is_full(stack_num):
+            return "The stack is full"
+        else:
+            value = self.cust_list[self.is_top_element(stack_num)]
+            return value
 
 st = Stack2()
 print(st.isEmpty())
