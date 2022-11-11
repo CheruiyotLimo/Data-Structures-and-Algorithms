@@ -218,17 +218,49 @@ class MinStack():
             # return self.mini
         return val
 
+#Q4 Stack of plates. When it reaches a certain capacity, we need to begin a new stack.
 
-st = MinStack()
-print(st.min())
-st.push(82)
-# st.push(58)
-# st.push(20)
-# st.push(70)
-# st.push(65)
-# st.push(15)
-# st.push(13)
+class Stack3():
+    def __init__(self, stack_size) -> None:
+        self.stack_size = stack_size
+        self.stacks = []
+    
+    def __str__(self):
+        # print(self.stacks)
+        return str(self.stacks)
+
+    def push(self, data):
+        if len(self.stacks) and len(self.stacks[-1]) < self.stack_size:
+            self.stacks[-1].append(data)
+        else:
+            self.stacks.append([data])
+    
+    def pop(self):
+        while len(self.stacks) and len(self.stacks[-1]) == 0:
+            self.stacks.pop()
+        if len(self.stacks) == 0:
+            return "The whole stack is empty"
+        else:
+            return self.stacks[-1].pop()
+
+    def pop_at(self, stack_num):
+        if stack_num >= len(self.stacks):
+            raise Exception("Invalid index")
+        elif len(self.stacks[stack_num]) > 0:
+            return self.stacks[stack_num].pop()
+        return None
+
+st = Stack3(3)
+st.push(5)
+st.push(5)
+st.push(5)
+st.push(5)
+st.push(5)
+st.push(9)
+st.push(45)
 print(st.pop())
-print(st.min())
 print(st.pop())
-print(st.min())
+print(st.pop_at(1))
+print(st.pop_at(1))
+print(st.pop_at(1))
+print(st)
