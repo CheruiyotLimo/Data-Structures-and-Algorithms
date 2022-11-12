@@ -250,17 +250,47 @@ class Stack3():
             return self.stacks[stack_num].pop()
         return None
 
-st = Stack3(3)
-st.push(5)
-st.push(5)
-st.push(5)
-st.push(5)
-st.push(5)
-st.push(9)
-st.push(45)
-print(st.pop())
-print(st.pop())
-print(st.pop_at(1))
-print(st.pop_at(1))
-print(st.pop_at(1))
-print(st)
+#Q5 Implemnt a queue via two stacks.
+
+class Stack5():
+    def __init__(self) -> None:
+        self.arr = []
+    
+    def __len__(self):
+        return len(self.arr)
+
+    def push(self, item):
+        self.arr.append(item)
+
+    def pop(self):
+        if len(self.arr) == 0:
+            return None
+        return self.arr.pop()
+
+class QueueViaStack():
+    def __init__(self) -> None:
+        self.in_stack = Stack5()
+        self.out_stack = Stack5()
+    
+    def enqueue(self, data):
+        self.in_stack.push(item=data)
+    
+
+    def dequeue(self):
+        while len(self.in_stack):
+            self.out_stack.push(self.in_stack.pop())
+        result = self.out_stack.pop()
+        while len(self.out_stack):
+            self.in_stack.push(self.out_stack.pop())
+        return result
+        
+st = QueueViaStack()
+st.enqueue(5)
+st.enqueue(1)
+st.enqueue(9)
+st.enqueue(55)
+st.enqueue(98)
+print(st.dequeue())
+print(st.dequeue())
+print(st.dequeue())
+print(st.dequeue())
