@@ -211,10 +211,110 @@ class MultiStack():
             value = self.cust_list[self.is_top_element(stack_num)]
             return value
 
+#Q6 Animal shelter.
+class llStack6():                                            
+    def __init__(self):
+        self.head = None
+        self.tail = None
 
-qu = MultiStack(3)
-print(qu.is_full(1))
-qu.push(4, 1)
-qu.push(6, 1)
-qu.push(5, 1)
-print(qu.is_full(1))
+    def __str__(self):
+        llstr = ""
+        itr = self.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+        return llstr
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class Queue6():
+    def __init__(self) -> None:
+        self.arr = llStack6()
+    
+    def __str__(self):
+        llstr = ""
+        itr = self.arr.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+            if itr.next == self.arr.head.next:
+                break
+        return llstr
+
+    def enqueue(self, data):
+        if not self.arr.head:
+            node = Node(data)
+            node.prev = node
+            node.next = node
+            self.arr.head = node
+            self.arr.head = node
+            self.arr.tail = node
+        else:
+            node = Node(data)
+            node.next = self.arr.head
+            node.prev = self.arr.tail
+            self.arr.head.prev = node
+            self.arr.head = node
+            self.arr.tail.next = node
+    
+    def dequeue_any(self):
+        data = self.arr.tail.data
+        self.arr.tail = self.arr.tail.prev
+        self.arr.head.prev = self.arr.tail
+        self.arr.tail.next = self.arr.head
+        return data
+    
+    def dequeue_dog(self):
+        if self.arr.tail.data == "Dog":
+            return self.dequeue_any()
+        else:
+            itr = self.arr.tail.prev
+            while itr:
+                if itr.data == "Dog":
+                    x = itr.data
+                    if itr == self.arr.head:
+                        self.arr.head = itr.next
+                        self.arr.head.prev = self.arr.tail
+                        self.arr.tail.next = self.arr.head
+                    else:
+                        itr.prev.next = itr.next
+                        itr.next.prev = itr.prev
+                    return x
+                itr = itr.prev
+                if itr.prev == self.arr.tail.prev:
+                    break       
+
+    def dequeue_cat(self):
+        if self.arr.tail.data == "Cat":
+            return self.dequeue_any()
+        else:
+            itr = self.arr.tail.prev
+            while itr:
+                if itr.data == "Cat":
+                    x = itr.data
+                    if itr == self.arr.head:
+                        self.arr.head = itr.next
+                        self.arr.head.prev = self.arr.tail
+                        self.arr.tail.next = self.arr.head
+                    else:
+                        itr.prev.next = itr.next
+                        itr.next.prev = itr.prev
+                    return x
+                itr = itr.prev
+                if itr.prev == self.arr.tail.prev:
+                    break                
+
+qu = Queue6()
+qu.enqueue("Cat")
+qu.enqueue("Cat")
+qu.enqueue("Dog")
+qu.enqueue("Dog")
+qu.enqueue("Cat")
+print(qu.dequeue_cat())
+print(qu.dequeue_cat())
+print(qu.dequeue_cat())
+print(qu)

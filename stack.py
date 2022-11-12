@@ -283,7 +283,47 @@ class QueueViaStack():
         while len(self.out_stack):
             self.in_stack.push(self.out_stack.pop())
         return result
-        
+
+#Q6 Animal shelter.
+class llStack6():                                            
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def __str__(self):
+        llstr = ""
+        itr = self.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+        return llstr
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class Queue6():
+    def __init__(self) -> None:
+        self.arr = llStack6()
+    
+    def enqueue(self, data):
+        if not self.arr.head:
+            node = Node(data)
+            self.arr.head = node
+            self.arr.head = node
+            self.arr.tail = node
+        else:
+            node = Node(data)
+            node.next = self.arr.head
+            self.arr.head = node
+    
+    def dequeue_any(self):
+        data = self.arr.tail.data
+        self.arr.tail = self.arr.tail.prev
+
+
 st = QueueViaStack()
 st.enqueue(5)
 st.enqueue(1)
