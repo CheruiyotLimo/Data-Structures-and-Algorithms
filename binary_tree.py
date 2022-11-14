@@ -70,10 +70,15 @@ class Queue2():
     def dequeue(self):
         if self.isEmpty():
             return "The queue is empty"
-        x = self.arr.head.prev.data
-        self.arr.tail = self.arr.tail.prev
-        self.arr.tail.next = self.arr.head
-        self.arr.head.prev = self.arr.tail
+        if len(self) == 1:
+            x = self.arr.head.prev.data
+            self.arr.head = None
+            self.arr.tail = None
+        else:
+            x = self.arr.head.prev.data
+            self.arr.tail = self.arr.tail.prev
+            self.arr.tail.next = self.arr.head
+            self.arr.head.prev = self.arr.tail
         return x
 
     def peek(self):
@@ -165,7 +170,7 @@ class BinaryTreeNode():
         else:
             qu = Queue2()
             qu.enqueue(self)
-            while qu.isEmpty() is False:
+            while not qu.isEmpty():
                 node = qu.dequeue()
                 elements.append(node.data)
                 if node.left:
@@ -207,8 +212,8 @@ print(["In order: "],  x.in_order_traversal())
 # print(x.find_min())
 # print(x.find_max())
 # print(x.calculate_sum())
-# print(["Pre_order: "], x.pre_order_traversal())
-# print(["Post-order: "], x.post_order_traversal())
-print(x.delete(4))
+print(["Pre_order: "], x.pre_order_traversal())
+print(["Post-order: "], x.post_order_traversal())
+# print(x.delete(4))
 print(["In order: "],  x.in_order_traversal())
 print("Level Order: ",  x.level_order_traversal())
