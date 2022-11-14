@@ -1,3 +1,86 @@
+class LLStack():
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def __iter__(self):
+        itr = self.head
+        while itr:
+            yield itr
+            itr = itr.next
+
+    def __str__(self):
+        llstr = ""
+        itr = self.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+        return llstr
+    
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class Queue2():
+    def __init__(self):
+        self.arr = LLStack()
+    
+    def __str__(self):
+        llstr = ""
+        itr = self.arr.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+            if itr.next == self.arr.head.next:
+                break
+        return llstr
+
+    def __len__(self):
+        count = 0
+        itr = self.arr.head
+        while itr:
+            count += 1
+            itr = itr.next
+            if itr.next == self.arr.head.next:
+                break
+        return count 
+
+    def isEmpty(self):
+        if self.arr.head == None:
+            return True
+        return False
+    
+    def enqueue(self, data):
+        node = Node(data)
+        if self.isEmpty():
+            node.next = node
+            node.prev = node
+            self.arr.head = node
+            self.arr.tail = node
+        else:
+            node.next = self.arr.head
+            node.prev = self.arr.tail
+            self.arr.head.prev = node
+            self.arr.head = node
+            self.arr.tail.next = node
+        return
+
+    def dequeue(self):
+        if self.isEmpty():
+            return "The queue is empty"
+        x = self.arr.head.prev.data
+        self.arr.tail = self.arr.tail.prev
+        self.arr.tail.next = self.arr.head
+        self.arr.head.prev = self.arr.tail
+        return x
+
+    def peek(self):
+        if self.isEmpty():
+            return "The queue is empty"
+        return self.arr.head.prev.data
+
 class BinaryTreeNode():
     def __init__(self, data):
         self.data = data
@@ -75,6 +158,22 @@ class BinaryTreeNode():
         elements.append(self.data)
         return elements
 
+    def level_order_traversal(self):
+        elements = []
+        if not self:
+            return
+        else:
+            qu = Queue2()
+            qu.enqueue(self)
+            while qu.isEmpty() is False:
+                node = qu.dequeue()
+                elements.append(node.data)
+                if node.left:
+                    qu.enqueue(node.left)
+                if node.right:
+                    qu.enqueue(node.right)
+            return elements
+
     def delete(self, value):
         if value < self.data:
             if self.left:
@@ -112,3 +211,4 @@ print(["In order: "],  x.in_order_traversal())
 # print(["Post-order: "], x.post_order_traversal())
 print(x.delete(4))
 print(["In order: "],  x.in_order_traversal())
+print("Level Order: ",  x.level_order_traversal())
