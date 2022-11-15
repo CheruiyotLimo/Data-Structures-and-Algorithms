@@ -244,13 +244,19 @@ def delete_node(root, d_node):    #When deleting a node, if the node has childre
                 return
             else:
                 if node.left.data == d_node:
-                    del_deepest_node(root)
-                    node.left.data = deepest.data
-                    return
+                    if node.left.data is deepest.data:
+                        node.left = None
+                        return
+                    else:
+                        del_deepest_node(root)
+                        node.left.data = deepest.data
+                        return
                 else:
                     if node.left:
                         qu.enqueue(node.left)
                 if node.right.data == d_node:
+                    if node.right.data is deepest.data:
+                        node.right = None
                     del_deepest_node(root)
                     node.right.data = deepest.data
                     return
@@ -269,6 +275,7 @@ add_child(el, "Samsung")
 add_child(el, "City of Thieves")
 add_child(el, "Horror")
 add_child(el, "14 Pro")
+add_child(el, "8 Pro")
 print(find_max_depth(el))
 
 
@@ -278,6 +285,7 @@ print(find_max_depth(el))
 # print(post_order_traversal(el))
 # print(in_order_traversal(el))
 # del_deepest_node(el)
+delete_node(el, "14 Pro")
 delete_node(el, "Books")
 print(in_order_traversal(el))
 
