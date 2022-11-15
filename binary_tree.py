@@ -170,9 +170,6 @@ def level_order_traversal(self):      #Breadth first traversal
                 qu.enqueue(node.left)
                 qu.enqueue(node.right)
 
-
-
-
 def search(self, data):   #Preferable to use level-order traversal.
     if not self:
         return
@@ -189,7 +186,79 @@ def search(self, data):   #Preferable to use level-order traversal.
                 qu.enqueue(node.right)
         return "Data not found."
 
+def find_max_depth(root):
+    if not root:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(root)
+        count = 0
+        while not qu.isEmpty():
+            count += 1
+            node = qu.dequeue()
+            if node.left:
+                qu.enqueue(node.left)
+            if node.right:
+                qu.enqueue(node.right)  
+        # print(f"{node.data} is the deepest at level {count}")
+        return node
+
     
+def del_deepest_node(root):
+    if not root:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(root)
+        deepest = find_max_depth(root)
+        while not qu.isEmpty():  
+            node = qu.dequeue()
+            if node is deepest:
+                node = None
+            else:
+                if node.right:
+                    if node.right is deepest:
+                        node.right = None
+                        return
+                    else:
+                        qu.enqueue(node.right)
+                if node.left:
+                    if node.left is deepest:
+                        node.left = None
+                        return
+                    else:
+                        qu.enqueue(node.left)
+
+def delete_node(root, d_node):    #When deleting a node, if the node has children, then we replace the node with the deepest node.
+    if not root:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(root)
+        while not qu.isEmpty():
+            deepest = find_max_depth(root)
+            node = qu.dequeue()
+            if node.data == d_node:
+                del_deepest_node(root)
+                node = deepest
+                return
+            else:
+                if node.left.data == d_node:
+                    del_deepest_node(root)
+                    node.left.data = deepest.data
+                    return
+                else:
+                    if node.left:
+                        qu.enqueue(node.left)
+                if node.right.data == d_node:
+                    del_deepest_node(root)
+                    node.right.data = deepest.data
+                    return
+                else:
+                    if node.right:
+                        qu.enqueue(node.right)
+
+
 
 
 el = TreeNode("Electronics")
@@ -200,12 +269,17 @@ add_child(el, "Samsung")
 add_child(el, "City of Thieves")
 add_child(el, "Horror")
 add_child(el, "14 Pro")
+print(find_max_depth(el))
 
 
 
 # phone.add_child(TreeNode("Pixel"))
-print(pre_order_traversal(el))
+# print(pre_order_traversal(el))
 # print(post_order_traversal(el))
 # print(in_order_traversal(el))
+# del_deepest_node(el)
+delete_node(el, "Books")
+print(in_order_traversal(el))
+
 # print(level_order_traversal(el))
 # print(search(el, "SA"))
