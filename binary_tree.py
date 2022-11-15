@@ -92,28 +92,36 @@ class TreeNode():
         self.left = None
         self.right = None
 
-    def add_child(self, data):
-        node = TreeNode(data)
-        if not self:
-            self = node
-        else:
-            if self.right and self.left:
-                raise Exception("The children are full")
-            elif self.left:
-                self.right = node
+def add_child(root, data):
+    new_node = TreeNode(data)
+    if not root:
+        root = node
+    else:
+        qu = Queue2()
+        qu.enqueue(root)
+        while not qu.isEmpty():
+            node = qu.dequeue()
+            if node.left and node.right:
+                qu.enqueue(node.left)
+                qu.enqueue(node.right)
+            elif not node.left:
+                node.left = new_node
+                break
             else:
-                self.left = node
-            return
+                node.right = new_node
+                break
+        return
 
-el = TreeNode("Electronics")
-phone = TreeNode("Phones")
-books = TreeNode("Books")
-el.left = phone
-el.right = books
-# iphone = TreeNode("iPhone")
-# sams = TreeNode("Samsung")
-phone.add_child("iPhone")
-phone.add_child("Samsung")
+
+
+# phone = TreeNode("Phones")
+# books = TreeNode("Books")
+# el.left = phone
+# el.right = books
+# # iphone = TreeNode("iPhone")
+# # sams = TreeNode("Samsung")
+# phone.add_child("iPhone")
+# phone.add_child("Samsung")
 # phone.add_child(TreeNode("Oppo"))
     
 def print_tree(self):
@@ -184,11 +192,20 @@ def search(self, data):   #Preferable to use level-order traversal.
     
 
 
+el = TreeNode("Electronics")
+add_child(el, "Phones")
+add_child(el, "Books")
+add_child(el, "Iphone")
+add_child(el, "Samsung")
+add_child(el, "City of Thieves")
+add_child(el, "Horror")
+add_child(el, "14 Pro")
+
 
 
 # phone.add_child(TreeNode("Pixel"))
-# print(pre_order_traversal(el))
+print(pre_order_traversal(el))
 # print(post_order_traversal(el))
 # print(in_order_traversal(el))
 # print(level_order_traversal(el))
-print(search(el, "SA"))
+# print(search(el, "SA"))
