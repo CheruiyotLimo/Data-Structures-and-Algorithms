@@ -91,91 +91,104 @@ class TreeNode():
         self.data = data
         self.left = None
         self.right = None
-    
-    def print_tree(self):
-        # spaces = " " * self.get_level() * 3
-        print(self.data)
-        if self.left:
-            self.left.print_tree()
-        if self.right:
-            self.right.print_tree()
-        return
-    
-    def pre_order_traversal(self):          #Depth-first traversal
-        if not self:
-            return
-        else:
-            print(self.data)
-            self.pre_order_traversal(self.left)
-            self.pre_order_traversal(self.right)
-    
-    def in_order_traversal(self):           ##Depth-first traversal
-        if not self:
-            return
-        else:
-            self.pre_order_traversal(self.left)
-            print(self.data)
-            self.pre_order_traversal(self.right)
-    
-    def post_order_traversal(self):         #Depth-first traversal
-        if not self:
-            return
-        else:
-            self.pre_order_traversal(self.left)
-            self.pre_order_traversal(self.right)
-            print(self.data)
-
-    def level_order_traversal(self):      #Breadth first traversal
-        if not self:
-            return
-        else:
-            qu = Queue2()
-            qu.enqueue(self)
-            while not qu.isEmpty():
-                node = qu.dequeue()
-                if not node:
-                    print(node.data)
-                    qu.enqueue(self.left)
-                    qu.enqueue(self.right)
-
 
     def add_child(self, data):
         node = TreeNode(data)
         if not self:
             self = node
         else:
-            if self.left:
+            if self.right and self.left:
+                raise Exception("The children are full")
+            elif self.left:
                 self.right = node
             else:
                 self.left = node
             return
 
-    def search(self, data):   #Preferable to use level-order traversal.
-        if not self:
-            return
-        else:
-            qu = Queue2()
-            qu.enqueue(self)
-            while not qu.isEmpty():
-                node = qu.dequeue()
-                if data == node:
-                    return "Found the data."
-                if node.left:
-                    qu.enqueue(node.left)
-                if node.right:
-                    qu.enqueue(node.right)
-            return "Data not found."
+el = TreeNode("Electronics")
+phone = TreeNode("Phones")
+books = TreeNode("Books")
+el.left = phone
+el.right = books
+# iphone = TreeNode("iPhone")
+# sams = TreeNode("Samsung")
+phone.add_child("iPhone")
+phone.add_child("Samsung")
+# phone.add_child(TreeNode("Oppo"))
+    
+def print_tree(self):
+    # spaces = " " * self.get_level() * 3
+    print(self.data)
+    if self.left:
+        self.left.print_tree()
+    if self.right:
+        self.right.print_tree()
+    return
+
+def pre_order_traversal(self):          #Depth-first traversal
+    if not self:
+        return
+    else:
+        print(self.data)
+        pre_order_traversal(self.left)
+        pre_order_traversal(self.right)
+
+def in_order_traversal(root):           ##Depth-first traversal
+    if not root:
+        return
+    else:
+        in_order_traversal(root.left)
+        print(root.data)
+        in_order_traversal(root.right)
+
+def post_order_traversal(self):         #Depth-first traversal
+    if not self:
+        return
+    else:
+        post_order_traversal(self.left)
+        post_order_traversal(self.right)
+        print(self.data)
+
+def level_order_traversal(self):      #Breadth first traversal
+    if not self:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(self)
+        while not qu.isEmpty():
+            node = qu.dequeue()
+            if node:
+                print(node.data)
+                qu.enqueue(node.left)
+                qu.enqueue(node.right)
+
+
+
+
+def search(self, data):   #Preferable to use level-order traversal.
+    if not self:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(self)
+        while not qu.isEmpty():
+            node = qu.dequeue()
+            if data == node.data:
+                return "Found the data."
+            if node.left:
+                qu.enqueue(node.left)
+            if node.right:
+                qu.enqueue(node.right)
+        return "Data not found."
 
     
 
 
 
-el = TreeNode("Electronics")
-phone = TreeNode("Phones")
-books = TreeNode("Books")
-el.add_child(books)
-el.add_child(phone)
-phone.add_child(TreeNode("iPhone"))
-phone.add_child(TreeNode("Samsung"))
+
 # phone.add_child(TreeNode("Pixel"))
-el.print_tree()
+# print(pre_order_traversal(el))
+# print(post_order_traversal(el))
+# print(in_order_traversal(el))
+# print(level_order_traversal(el))
+print(search(el, "SA"))
