@@ -275,7 +275,42 @@ class TreeNode2:
                 return "Item found"
         return "Not in list."\
 
+    def pre_order_traversal(self, index):
+        if index > self.last_index+1:
+            return
+        print(self.cust_list[index])
+        self.pre_order_traversal(index*2)
+        self.pre_order_traversal(index*2+1)
+
+    def in_order_traversal(self, index):
+        if index > self.last_index+1:
+            return
+        self.in_order_traversal(index*2)
+        print(self.cust_list[index])
+        self.in_order_traversal(index*2+1)
+
+    def post_order_traversal(self, index):
+        if index > self.last_index+1:
+            return
+        self.post_order_traversal(index*2)
+        self.post_order_traversal(index*2+1)
+        print(self.cust_list[index])
     
+    def level_order_traversal(self, index):
+        if index > self.last_index+1:
+            return
+        for i in range(index, len(self.cust_list)):
+            if self.cust_list[i]:
+                print(self.cust_list[i])
+    
+    def delete_node(self, value):
+        for i in range(1, len(self.cust_list)):
+            if self.cust_list[i] == value:
+                delet = self.cust_list[i]
+                self.cust_list[i] = self.cust_list[self.last_index]
+                self.cust_list[self.last_index] = None
+                self.last_index -= 1
+                return delet
 
 
 el = TreeNode2(10)
@@ -295,7 +330,11 @@ el.add_value("Samsung")
 # add_child(el, "8 Pro")
 # print(find_max_depth(el))
 print(el)
-print(el.search("Samsung"))
+# print(el.search("Samsung"))
+# el.level_order_traversal(1)
+print(el.delete_node("Books"))
+# el.level_order_traversal(1)
+print(el)
 
 
 
