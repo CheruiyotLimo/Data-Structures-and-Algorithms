@@ -86,6 +86,7 @@ class Queue2():
             return "The queue is empty"
         return self.arr.head.prev.data
 
+#Implementation using a linked list
 class TreeNode():
     def __init__(self, data):
         self.data = data
@@ -111,18 +112,6 @@ def add_child(root, data):
                 node.right = new_node
                 break
         return
-
-
-
-# phone = TreeNode("Phones")
-# books = TreeNode("Books")
-# el.left = phone
-# el.right = books
-# # iphone = TreeNode("iPhone")
-# # sams = TreeNode("Samsung")
-# phone.add_child("iPhone")
-# phone.add_child("Samsung")
-# phone.add_child(TreeNode("Oppo"))
     
 def print_tree(self):
     # spaces = " " * self.get_level() * 3
@@ -229,8 +218,8 @@ def del_deepest_node(root):
                     else:
                         qu.enqueue(node.left)
 
-def delete_node(root, d_node):    #When deleting a node, if the node has children, then we replace the node with the deepest node.
-    if not root:
+def delete_node(root, d_node):    #When deleting a node, if the node has children, or even not,
+    if not root:                    #then we replace the node with the deepest node.
         return
     else:
         qu = Queue2()
@@ -264,19 +253,49 @@ def delete_node(root, d_node):    #When deleting a node, if the node has childre
                     if node.right:
                         qu.enqueue(node.right)
 
+#Implementation using a python list.
+class TreeNode2:
+    def __init__(self, max_size: int) -> None:
+        self.max_size = max_size
+        self.cust_list = [None] * max_size
+        self.last_index = 0
+    
+    def __str__(self):
+        return str(self.cust_list)
+
+    def add_value(self, value):
+        if self.last_index + 1 > self.max_size:
+            return "The list is full."
+        self.cust_list[self.last_index+1] = value
+        self.last_index += 1
+
+    def search(self, value):
+        for i in  range(len(self.cust_list)):
+            if self.cust_list[i] == value:
+                return "Item found"
+        return "Not in list."\
+
+    
 
 
-
-el = TreeNode("Electronics")
-add_child(el, "Phones")
-add_child(el, "Books")
-add_child(el, "Iphone")
-add_child(el, "Samsung")
-add_child(el, "City of Thieves")
-add_child(el, "Horror")
-add_child(el, "14 Pro")
-add_child(el, "8 Pro")
-print(find_max_depth(el))
+el = TreeNode2(10)
+el.add_value("Electronics")
+el.add_value("Phones")
+el.add_value("Books")
+el.add_value("iPhone")
+el.add_value("Samsung")
+# add_child("Electronics")
+# add_child("Phones")
+# add_child(el, "Books")
+# add_child(el, "Iphone")
+# add_child(el, "Samsung")
+# add_child(el, "City of Thieves")
+# add_child(el, "Horror")
+# add_child(el, "14 Pro")
+# add_child(el, "8 Pro")
+# print(find_max_depth(el))
+print(el)
+print(el.search("Samsung"))
 
 
 
@@ -285,9 +304,9 @@ print(find_max_depth(el))
 # print(post_order_traversal(el))
 # print(in_order_traversal(el))
 # del_deepest_node(el)
-delete_node(el, "14 Pro")
-delete_node(el, "Books")
-print(in_order_traversal(el))
+# delete_node(el, "14 Pro")
+# delete_node(el, "Books")
+# print(in_order_traversal(el))
 
 # print(level_order_traversal(el))
 # print(search(el, "SA"))
