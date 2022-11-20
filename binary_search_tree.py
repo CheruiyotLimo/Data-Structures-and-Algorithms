@@ -179,7 +179,7 @@ class BinaryTreeNode():
                     qu.enqueue(node.right)
             return elements
 
-    def delete(self, value):
+    def delete(self, value): #Not working well.
         if value < self.data:
             if self.left:
                 self.left = self.left.delete(value = value)
@@ -208,12 +208,14 @@ def tree_builder(numbers):
 
 x = tree_builder([17, 4, 1, 20, 9, 23, 18, 34])
 print(x)
-print(["In order: "],  x.in_order_traversal())
-# print(x.find_min())
-# print(x.find_max())
-# print(x.calculate_sum())
-print(["Pre_order: "], x.pre_order_traversal())
-print(["Post-order: "], x.post_order_traversal())
-# print(x.delete(4))
-print(["In order: "],  x.in_order_traversal())
+# print(["In order: "],  x.in_order_traversal())
+# # print(x.find_min())
+# # print(x.find_max())
+# # print(x.calculate_sum())
+# print(["Pre_order: "], x.pre_order_traversal())
+# print(["Post-order: "], x.post_order_traversal())
+# # print(x.delete(4))
+# print(["In order: "],  x.in_order_traversal())
+print("Level Order: ",  x.level_order_traversal())
+print(x.delete(4))
 print("Level Order: ",  x.level_order_traversal())
