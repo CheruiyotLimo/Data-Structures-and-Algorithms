@@ -1,5 +1,93 @@
 
 
+class LLStack():
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def __iter__(self):
+        itr = self.head
+        while itr:
+            yield itr
+            itr = itr.next
+
+    def __str__(self):
+        llstr = ""
+        itr = self.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+        return llstr
+    
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class Queue2():
+    def __init__(self):
+        self.arr = LLStack()
+    
+    def __str__(self):
+        llstr = ""
+        itr = self.arr.head
+        while itr:
+            llstr += str(itr.data) + " --> "
+            itr = itr.next
+            if itr.next == self.arr.head.next:
+                break
+        return llstr
+
+    def __len__(self):
+        count = 0
+        itr = self.arr.head
+        while itr:
+            count += 1
+            itr = itr.next
+            if itr.next == self.arr.head.next:
+                break
+        return count 
+
+    def isEmpty(self):
+        if self.arr.head == None:
+            return True
+        return False
+    
+    def enqueue(self, data):
+        node = Node(data)
+        if self.isEmpty():
+            node.next = node
+            node.prev = node
+            self.arr.head = node
+            self.arr.tail = node
+        else:
+            node.next = self.arr.head
+            node.prev = self.arr.tail
+            self.arr.head.prev = node
+            self.arr.head = node
+            self.arr.tail.next = node
+        return
+
+    def dequeue(self):
+        if self.isEmpty():
+            return "The queue is empty"
+        if len(self) == 1:
+            x = self.arr.head.prev.data
+            self.arr.head = None
+            self.arr.tail = None
+        else:
+            x = self.arr.head.prev.data
+            self.arr.tail = self.arr.tail.prev
+            self.arr.tail.next = self.arr.head
+            self.arr.head.prev = self.arr.tail
+        return x
+
+    def peek(self):
+        if self.isEmpty():
+            return "The queue is empty"
+        return self.arr.head.prev.data
+
 class AVLTree():
     def __init__(self, data) -> None:
         self.data = data
@@ -32,16 +120,73 @@ def post_order_traversal(self):         #Depth-first traversal
         post_order_traversal(self.right)
         print(self.data)
 
+def level_order_traversal(self):      #Breadth first traversal
+    if not self:
+        return
+    else:
+        qu = Queue2()
+        qu.enqueue(self)
+        while not qu.isEmpty():
+            node = qu.dequeue()
+            if node:
+                print(node.data)
+                qu.enqueue(node.left)
+                qu.enqueue(node.right)
+
 def get_height(root):
+    if not root:
+        return 0
     return root.height
 
 def balance(root):
     if not root:
-        return
-    return (root.left.get_height()-root.right.get_height())
+        return 0
+    return (get_height(root.left)-get_height(root.right))
 
 def right_rotate(unbal_root):
     new_root = unbal_root.left
-    unbal_root.right = unbal_root.left.right
+    unbal_root.left = unbal_root.left.right
     new_root.right = unbal_root
-    new_root.height = new_root.get_height()
+    unbal_root.height = 1 + max(get_height(unbal_root.left), get_height(unbal_root.right))
+    new_root.height = 1 + max(get_height(new_root.left), get_height(new_root.right))
+    return new_root
+
+def left_rotate(unbal_root):
+    new_root = unbal_root.right
+    unbal_root.right = unbal_root.right.left
+    new_root.left = unbal_root
+    unbal_root.height = 1 + max(get_height(unbal_root.left), get_height(unbal_root.right))
+    new_root.height = 1 + max(get_height(new_root.left), get_height(new_root.right))
+    return new_root
+
+def add_node(root, node_value):
+    if not root:
+        return AVLTree(node_value)
+    elif node_value < root.data:
+        root.left = add_node(root.left, node_value)
+    else:
+        root.right = add_node(root.right, node_value)
+        print("l")
+    root.height = 1 + max(get_height(root.left), get_height(root.right))
+    bal = balance(root)
+    
+    if bal > 1 and node_value < root.left.data:    #Left-left condition
+        return right_rotate(root)
+    if bal > 1 and node_value > root.left.data:    #Left-right condition
+        root.left = left_rotate(root.left)
+        return right_rotate(root)
+    if bal < -1 and node_value > root.right.data:    #Right-right condition
+        return left_rotate(root)
+    if bal < -1 and node_value < root.right.data:    #Right-left condition
+        root.right = right_rotate(root.right)
+        return left_rotate(root)
+    return root
+
+av = AVLTree(5)
+add_node(av, 10)
+add_node(av, 20)
+add_node(av, 30)
+add_node(av, 40)
+level_order_traversal(av)
+in_order_traversal(av)
+print(get_height(av))
