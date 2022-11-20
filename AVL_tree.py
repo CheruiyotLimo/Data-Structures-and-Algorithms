@@ -166,7 +166,7 @@ def add_node(root, node_value):
         root.left = add_node(root.left, node_value)
     else:
         root.right = add_node(root.right, node_value)
-        print("l")
+        # print("l")
     root.height = 1 + max(get_height(root.left), get_height(root.right))
     bal = balance(root)
     
@@ -183,10 +183,10 @@ def add_node(root, node_value):
     return root
 
 av = AVLTree(5)
-add_node(av, 10)
-add_node(av, 20)
-add_node(av, 30)
-add_node(av, 40)
+av = add_node(av, 10)
+av = add_node(av, 20)
+av = add_node(av, 30)
+av = add_node(av, 40)
 level_order_traversal(av)
-in_order_traversal(av)
-print(get_height(av))
+# in_order_traversal(av)
+print(get_height(av.right))
