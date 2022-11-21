@@ -182,11 +182,44 @@ def add_node(root, node_value):
         return left_rotate(root)
     return root
 
+def min_val(root):
+    if not root or not root.left:
+        return root
+    return min_val(root.left)
+
+def delete_node(root, node_value):
+    if not root:
+        return "Empty"
+    elif node_value < root.data:
+        root.left = delete_node(root.left, node_value)
+    elif node_value > root.data:
+        root.right = delete_node(root.right, node_value)
+    else:
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+        if root.right is None:
+            temp = root.left
+            root = None
+            return 
+        temp = min_val(root.right)
+        root.data = temp.data
+        root.right = delete_node(root.right, temp.data)
+        return root
+
+
 av = AVLTree(5)
 av = add_node(av, 10)
 av = add_node(av, 20)
 av = add_node(av, 30)
 av = add_node(av, 40)
+av = add_node(av, 50)
+av = add_node(av, 60)
+av = add_node(av, 70)
+av = add_node(av, 55)
+level_order_traversal(av)
+av = delete_node(av, 50)
 level_order_traversal(av)
 # in_order_traversal(av)
-print(get_height(av.right))
+# print(get_height(av.right))

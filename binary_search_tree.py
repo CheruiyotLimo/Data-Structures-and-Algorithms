@@ -132,9 +132,10 @@ class BinaryTreeNode():
         return elements
 
     def find_min(self):
-        if self.left is None:
+        if self.left is None:   #May need to rule out one edge case(Check AVL)
             return self.data
         return self.left.find_min()
+
     def find_max(self):
         if self.right is None:
             return self.data
@@ -179,25 +180,46 @@ class BinaryTreeNode():
                     qu.enqueue(node.right)
             return elements
 
-    def delete(self, value): #Not working well.
-        if value < self.data:
-            if self.left:
-                self.left = self.left.delete(value = value)
-        if value > self.data:
-            if self.right:
-                self.right = self.right.delete(value = value)
+    # def delete(self, value): #Not working well.
+    #     if value < self.data:
+    #         self.left = self.left.delete(value = value)
+    #     if value > self.data:
+    #         self.right = self.right.delete(value = value)
+    #     else:
+    #         # if self.left is None and self.right is None:
+    #         #     return
+    #         if self.right is None:
+    #             temp = self.left
+    #             self.left = None
+    #             return temp
+    #         elif self.left is None:
+    #             temp = self.right
+    #             self.right = None
+    #             return temp
+    #         min_val = self.right.find_min()
+    #         self.data = min_val
+    #         self.right = self.right.delete(min_val)
+    #     return self
+    def delete_node(self, node_value):
+        if not self:
+            return self
+        elif node_value < self.data:
+            self.left = self.left.delete_node(node_value)
+        elif node_value > self.data:
+            self.right = self.right.delete_node(node_value)
         else:
-            if self.left is None and self.right is None:
-                return
-            if self.right is None:
-                return self.left
             if self.left is None:
-                return self.right
-            else:
-                min_val = self.left.find_max()
-                self.data = min_val
-                self.left = self.left.delete(min_val)
-        return self
+                temp = self.right
+                self = None
+                return temp
+            elif self.right is None:
+                temp = self.left
+                self = None
+                return temp
+            temp = self.right.find_min()
+            self.data = temp
+            self.right = self.right.delete_node(temp)
+            return self
 
 def tree_builder(numbers):
     root = BinaryTreeNode(numbers[0])
@@ -217,5 +239,5 @@ print(x)
 # # print(x.delete(4))
 # print(["In order: "],  x.in_order_traversal())
 print("Level Order: ",  x.level_order_traversal())
-print(x.delete(4))
+print(x.delete_node(23))
 print("Level Order: ",  x.level_order_traversal())
