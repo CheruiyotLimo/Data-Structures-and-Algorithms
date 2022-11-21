@@ -180,26 +180,6 @@ class BinaryTreeNode():
                     qu.enqueue(node.right)
             return elements
 
-    # def delete(self, value): #Not working well.
-    #     if value < self.data:
-    #         self.left = self.left.delete(value = value)
-    #     if value > self.data:
-    #         self.right = self.right.delete(value = value)
-    #     else:
-    #         # if self.left is None and self.right is None:
-    #         #     return
-    #         if self.right is None:
-    #             temp = self.left
-    #             self.left = None
-    #             return temp
-    #         elif self.left is None:
-    #             temp = self.right
-    #             self.right = None
-    #             return temp
-    #         min_val = self.right.find_min()
-    #         self.data = min_val
-    #         self.right = self.right.delete(min_val)
-    #     return self
     def delete_node(self, node_value):
         if not self:
             return self
@@ -219,7 +199,7 @@ class BinaryTreeNode():
             temp = self.right.find_min()
             self.data = temp
             self.right = self.right.delete_node(temp)
-            return self
+        return self
 
 def tree_builder(numbers):
     root = BinaryTreeNode(numbers[0])
@@ -239,5 +219,5 @@ print(x)
 # # print(x.delete(4))
 # print(["In order: "],  x.in_order_traversal())
 print("Level Order: ",  x.level_order_traversal())
-print(x.delete_node(23))
+print(x.delete_node(17))
 print("Level Order: ",  x.level_order_traversal())

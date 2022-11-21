@@ -121,6 +121,7 @@ def post_order_traversal(self):         #Depth-first traversal
         print(self.data)
 
 def level_order_traversal(self):      #Breadth first traversal
+    empty = []
     if not self:
         return
     else:
@@ -129,9 +130,11 @@ def level_order_traversal(self):      #Breadth first traversal
         while not qu.isEmpty():
             node = qu.dequeue()
             if node:
-                print(node.data)
+                # print(node.data)
+                empty.append(node.data)
                 qu.enqueue(node.left)
                 qu.enqueue(node.right)
+        return empty
 
 def get_height(root):
     if not root:
@@ -187,14 +190,16 @@ def min_val(root):
         return root
     return min_val(root.left)
 
-def delete_node(root, node_value):
+def delete_node(root, node_value):    #Some edge scenarios seem like they do not work
     if not root:
-        return "Empty"
+        return root
     elif node_value < root.data:
         root.left = delete_node(root.left, node_value)
     elif node_value > root.data:
         root.right = delete_node(root.right, node_value)
     else:
+        # if root.left is None and root.right is None:
+        #     return
         if root.left is None:
             temp = root.right
             root = None
@@ -206,7 +211,19 @@ def delete_node(root, node_value):
         temp = min_val(root.right)
         root.data = temp.data
         root.right = delete_node(root.right, temp.data)
-        return root
+    root.height = 1 + max(get_height(root.left), get_height(root.right))
+    bal = balance(root)
+    if bal > 1 and get_height(root.left) >= 0:    #Left-Left condition
+        return right_rotate(root)
+    if bal < -1 and get_height(root.right) <= 0:    #Right-right condition
+        return left_rotate(root)
+    if bal > 1 and get_height(root.left) < 0:       #Left-right condition
+        root.left = left_rotate(root.left)
+        return right_rotate(root)
+    if bal < -1 and get_height(root.right) < 0:     #Right-left condition
+        root.right = right_rotate(root.right)
+        return left_rotate(root)
+    return root
 
 
 av = AVLTree(5)
@@ -218,8 +235,10 @@ av = add_node(av, 50)
 av = add_node(av, 60)
 av = add_node(av, 70)
 av = add_node(av, 55)
-level_order_traversal(av)
+print(level_order_traversal(av))
 av = delete_node(av, 50)
-level_order_traversal(av)
+print(level_order_traversal(av))
+av = delete_node(av, 40)
+print(level_order_traversal(av))
 # in_order_traversal(av)
 # print(get_height(av.right))
