@@ -211,20 +211,20 @@ def delete_node(root, node_value):    #Some edge scenarios seem like they do not
         temp = min_val(root.right)
         root.data = temp.data
         root.right = delete_node(root.right, temp.data)
+        return root
     root.height = 1 + max(get_height(root.left), get_height(root.right))
     bal = balance(root)
-    if bal > 1 and get_height(root.left) >= 0:    #Left-Left condition
+    if bal > 1 and balance(root.left) >= 0:    #Left-Left condition
         return right_rotate(root)
-    if bal < -1 and get_height(root.right) <= 0:    #Right-right condition
+    if bal < -1 and balance(root.right) <= 0:    #Right-right condition
         return left_rotate(root)
-    if bal > 1 and get_height(root.left) < 0:       #Left-right condition
+    if bal > 1 and balance(root.left) < 0:       #Left-right condition
         root.left = left_rotate(root.left)
         return right_rotate(root)
-    if bal < -1 and get_height(root.right) < 0:     #Right-left condition
+    if bal < -1 and balance(root.right) < 0:     #Right-left condition
         root.right = right_rotate(root.right)
         return left_rotate(root)
     return root
-
 
 av = AVLTree(5)
 av = add_node(av, 10)
@@ -239,6 +239,8 @@ print(level_order_traversal(av))
 av = delete_node(av, 50)
 print(level_order_traversal(av))
 av = delete_node(av, 40)
+print(level_order_traversal(av))
+av = delete_node(av, 70)
 print(level_order_traversal(av))
 # in_order_traversal(av)
 # print(get_height(av.right))
