@@ -36,6 +36,26 @@ class HashTable():
             if element[0] == data:
                 del self.arr[h][index]
 
+
+#Conflict resolution technique:
+# 1. Direct chaining - Use a linked list at each index so that subsequent values will be added as another node to the
+#                       linked list. Good cause hash table never gets full but bad when n is large as insertions, 
+#                       searching will take O(n) hence beating the purpose of a hash function.
+
+# 2. Open addressing - Linear probing - Here if a certain hash value(2) is already filled, we look for the next 
+#                                       available hash value using 2 + 1, 2 + 2, 2 + 3....2+n
+#
+#                      Quadratic probing - If a cerain hash value (2) is already filled, we look for the next 
+#                                          available hash value using 2 + 1^2, 2 + 2^2, 2 + 3^2.....2+n^2
+#
+#                      Double hashing - If a hash-value(2) is filled, then we implement a second hash function to
+#                                       generate a new hash-value(4) then um them i.e. 2+4 = 6. If the hash value sum 
+#                                       is filled, then we double the result of the 2nd hash function i.e 2 + (1*4), 
+#                                       2 + (2*4), 2 + (3*4).... 2+(n*4)
+        # Is the mainstay preferrred methof od conflict resolution and becomes evenmore ideal when there is a 
+        # fixed number of values to be hashed. May grow slower if there will be lots of deletions but averagely
+        # maintain O(1) complexity. 
+
 ht = HashTable()
 # ht.hash_function("march 24")
 ht["march 4"] = 133
@@ -44,5 +64,5 @@ ht["september 5"] = 3
 ht["march 23"] = 57
 ht["march 24"] = 1245
 ht["march 24"] = 90
-del ht["april 5"]
+# del ht["april 5"]
 print(ht.arr)
