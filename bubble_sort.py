@@ -1,4 +1,6 @@
 #Checks two adjacent values and sorts the two then moves to the next pair.
+# Good memory efficiency O(1) but poor time efficiency 0(n^2)
+
 def bubble_sort(numb_list):
     size = len(numb_list)
     for i in range(size - 1):
