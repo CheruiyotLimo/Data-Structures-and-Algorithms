@@ -1,4 +1,4 @@
-
+#Checks two adjacent values and sorts the two then moves to the next pair.
 def bubble_sort(numb_list):
     size = len(numb_list)
     for i in range(size - 1):
