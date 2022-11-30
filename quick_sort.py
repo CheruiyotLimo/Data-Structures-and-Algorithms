@@ -23,6 +23,16 @@ def hoare_partition(start, end, elements):
     swapper(pivot_index, end, elements)
     return end
 
+def elshad_partition(start, end, arr):
+    pivot_index = start
+    swap_index = start
+    for i in range(pivot_index+1, end+1):
+        if arr[i] < arr[pivot_index]:
+            swap_index += 1
+            swapper(swap_index, i, arr)
+    swapper(swap_index, pivot_index, arr)
+    return swap_index
+
 def lomuto_partition(elements):
     pivot_index = len(elements)-1
     pivot = elements[pivot_index]
@@ -36,8 +46,11 @@ def lomuto_partition(elements):
         if i == len(elements)-1:
             break
         while elements[i] > pivot:
+            if i == len(elements)-1:
+                break
             i += 1
         swapper(p_index, i, elements)
+    swapper(pivot_index, p_index, elements)
     return p_index
 
 
@@ -47,11 +60,22 @@ def lomuto_partition(elements):
 #         quick_sort(0, pi - 1, elements)
 #         quick_sort(pi + 1, end, elements)
 
-def quick_sort(elements):
-    lomuto_partition(elements)
+# def quick_sort(start, end, elements):
+#     if start < end:
+#         pi = lomuto_partition(elements)
+#         quick_sort(0, pi-1, elements)
+#         quick_sort(pi+1, len(elements)-1, elements)
+
+def quick_sort(start, end, elements):
+    if start < end:
+        part_ind = elshad_partition(start, end, elements)
+        quick_sort(start, part_ind-1, elements)
+        quick_sort(part_ind +1, end, elements)
+    return elements
 
 if __name__ == "__main__":
     lst = [12, 4, 56, 7, 23, 13, 20]
     # quick_sort(0, len(lst)-1, lst)
-    quick_sort(lst)
-    print(lst)
+    print(quick_sort(0, 6, lst))
+    # elshad_partition(0, 6, lst)
+    # print(lst)
