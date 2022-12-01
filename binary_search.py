@@ -1,8 +1,8 @@
 
 def linear_search(searchlist, element):
     for value in searchlist:
-        if value == element:
-            return True
+        if searchlist[value] == element:
+            return value
     return -1
 
 def binary_search(searchlist, element):
