@@ -30,6 +30,25 @@ class Graph:
                 self.g_dict[vertex2].append(vertex1)
             return True
         return False
+        
+    def remove_edge(self, vertex1, vertex2):
+        if vertex1 in self.g_dict.keys() and vertex2 in self.g_dict.keys():
+            try:
+                self.g_dict[vertex1].remove(vertex2)
+                self.g_dict[vertex2].remove(vertex1)
+            except ValueError:
+                pass
+            return True
+        return False
+    
+    def remove_vertex(self, vertex):
+        if vertex in self.g_dict.keys():
+            del self.g_dict[vertex]
+            for key in self.g_dict.keys():
+                if vertex in self.g_dict[key]:
+                    self.g_dict[key].remove(vertex)
+            return True
+        return False
 
 cust_graph = {
     "A": ["B",],
@@ -42,4 +61,7 @@ gr = Graph(cust_graph)
 gr.add_vertex("E")
 print(gr.add_edge("A", "C"))
 print(gr.add_edge("C", "D"))
+print(gr.add_edge("C", "B"))
+# print(gr.remove_edge("A", "B"))
+print(gr.remove_vertex("A"))
 print(gr)
