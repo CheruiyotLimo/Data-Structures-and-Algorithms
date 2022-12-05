@@ -49,7 +49,30 @@ class Graph:
                     self.g_dict[key].remove(vertex)
             return True
         return False
-
+    
+    def bfs(self, vertex):
+        visited = [vertex]
+        queue = [vertex]
+        while queue:            #Aptly named, best implemented usinga queue.
+            deq = queue.pop(0)
+            print(deq)
+            for i in self.g_dict[deq]:
+                if i not in visited:
+                    queue.append(i)
+                    visited.append(i)
+        
+    def dfs(self, vertex):
+        visited = [vertex]
+        stack = [vertex]
+        while stack:
+            val = stack.pop()
+            print(val)
+            for i in self.g_dict[val]:
+                if i not in visited:
+                    stack.append(i)
+                    visited.append(i)
+        
+                
 cust_graph = {
     "A": ["B",],
     "B": ["A",],
@@ -62,6 +85,9 @@ gr.add_vertex("E")
 print(gr.add_edge("A", "C"))
 print(gr.add_edge("C", "D"))
 print(gr.add_edge("C", "B"))
+print(gr.add_edge("D", "E"))
 # print(gr.remove_edge("A", "B"))
-print(gr.remove_vertex("A"))
+# print(gr.remove_vertex("A"))
 print(gr)
+gr.bfs("A")
+gr.dfs("A")
