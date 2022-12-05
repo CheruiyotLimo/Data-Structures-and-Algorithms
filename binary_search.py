@@ -40,5 +40,5 @@ def binary_search_recursive(searchlist, element, start, last):
 
 searchlist = [4, 5, 17, 26, 49, 75, 89, 103]
 # print(linear_search(searchlist, 49))
-print(binary_search(searchlist, 77))
-print(binary_search_recursive(searchlist, 77, 0, 2))
+print(binary_search(searchlist, 49))
+print(binary_search_recursive(searchlist, 49, 0, 4))
