@@ -1,4 +1,4 @@
-from queue import Queue
+import queue
 class LLStack():
     def __init__(self):
         self.head = None
