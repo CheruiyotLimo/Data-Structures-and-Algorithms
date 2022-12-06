@@ -1,3 +1,4 @@
+from queue import Queue
 class LLStack():
     def __init__(self):
         self.head = None
@@ -98,7 +99,7 @@ def add_child(root, data):
     if not root:
         root = node
     else:
-        qu = Queue2()
+        qu = queue.Queue2()
         qu.enqueue(root)
         while not qu.isEmpty():
             node = qu.dequeue()
