@@ -1,3 +1,4 @@
-from collections import deque
+import new_graph
 
-help(range)
+n = new_graph.Graph()
+print(n)
