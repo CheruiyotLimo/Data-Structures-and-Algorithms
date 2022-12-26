@@ -1,4 +1,4 @@
-import new_graph
+from Graphs import new_graph
 
 n = new_graph.Graph()
 print(n)
