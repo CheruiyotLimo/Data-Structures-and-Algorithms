@@ -29,7 +29,7 @@ class Dijkstra:
         self.heap = []
 
     def calculate_distance(self, start_vertex):
-        start_vertex.min_distance = 0
+        start_vertex.min_dist = 0
         heapq.heappush(self.heap, start_vertex)
         while self.heap:
             actual_vertex = heapq.heappop(self.heap)
@@ -89,6 +89,5 @@ node_H.add_edge(2, node_F)
 node_H.add_edge(14, node_G)
 
 algo = Dijkstra()
-algo.calculate_distance(node_A)
-algo.get_shortest_path(node_G)
-# print(node_G.min_dist)
+algo.calculate_distance(node_C)
+algo.get_shortest_path(node_E)
