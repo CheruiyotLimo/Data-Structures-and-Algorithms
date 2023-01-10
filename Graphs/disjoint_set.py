@@ -1,6 +1,5 @@
-
 class DisjointSet:
-    def __init__(self, vertices, parent):
+    def __init__(self, vertices):
         self.vertices = vertices
         self.parent = {}
         for v in vertices:
@@ -22,3 +21,9 @@ class DisjointSet:
         else:
             self.parent[y_root] = x_root
             self.rank[x_root] += 1
+
+
+vertices = ["A", "B", "C", "D", "E"]
+ds = DisjointSet(vertices)
+ds.union("A", "B")
+print(ds.find_element("B"))
