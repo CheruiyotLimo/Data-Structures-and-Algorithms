@@ -28,4 +28,4 @@ custom_dict = {
     "G": ["F"]
 }
 g = Graph(custom_dict)
-print(g.bfs("B", "F"))
+print(g.bfs("A", "F"))
