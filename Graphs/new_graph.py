@@ -53,7 +53,7 @@ class Graph:
     def bfs(self, vertex):
         visited = [vertex]
         queue = [vertex]
-        while queue:            #Aptly named, best implemented usinga queue.
+        while queue:                    #Aptly named, best implemented using a queue.
             deq = queue.pop(0)
             print(deq)
             for i in self.g_dict[deq]:
@@ -74,20 +74,21 @@ class Graph:
         
                 
 cust_graph = {
-    "A": ["B",],
-    "B": ["A",],
+    "A": ["B"],
+    "B": ["A"],
     "C": [],
     "D": []
 }
 gr = Graph(cust_graph)
 # gr.add_edge("A", "E")
 gr.add_vertex("E")
-print(gr.add_edge("A", "C"))
+print(gr.add_edge("A", "E"))
+print(gr.add_edge("A", "D"))
 print(gr.add_edge("C", "D"))
 print(gr.add_edge("C", "B"))
 print(gr.add_edge("D", "E"))
 # print(gr.remove_edge("A", "B"))
 # print(gr.remove_vertex("A"))
 print(gr)
-gr.bfs("A")
+# gr.bfs("A")
 gr.dfs("A")
