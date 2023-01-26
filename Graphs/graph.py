@@ -24,7 +24,8 @@ class Graph:
                     paths.append(p)
             return paths
         else:
-            return []
+            if not self.prop:
+                return []
     
     def shortest_possible_path_stops(self, start, end, possible_routes = []):
         '''By number of nodes/stop-overs.'''
