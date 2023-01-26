@@ -3,6 +3,7 @@ class Graph:
     def __init__(self, edges) -> None:
         self.edges = edges
         self.graph_dict = {}
+        self.prop = []
         for start, end in self.edges:
             if start in self.graph_dict:
                 self.graph_dict[start].append(end)
@@ -11,7 +12,7 @@ class Graph:
         print(self.graph_dict)
         return
 
-    def get_paths(self, start, end, possible_routes = []):
+    def get_paths(self, start, end, possible_routes=[]):
         possible_routes = possible_routes + [start]
         if start == end:
             return [possible_routes]
