@@ -26,14 +26,13 @@ class Graph:
 
     def cycle_checker(self):
         visited = []
-        stack = []
         for key in self.graph:
             if key not in visited:
-                if self.dfs(key, list(), visited, stack):
+                if self.dfs(key, list(), visited):
                     return True
         return False
 
-    def dfs(self, vert, path, visited, stack):
+    def dfs(self, vert, path, visited):
         path.append(vert)
         visited.append(vert)
         for i in self.graph[vert]:
@@ -41,7 +40,7 @@ class Graph:
                 continue
             if i in path:
                 return True
-            if i not in visited and self.dfs(i, path, visited, stack):
+            if i not in visited and self.dfs(i, path, visited):
                 return True
         path.pop()
         return False
@@ -52,7 +51,7 @@ custom_gr = Graph(6)
 custom_gr.add_edge("A", "C")
 custom_gr.add_edge("B", "D")
 custom_gr.add_edge("C", "E")
-# custom_gr.add_edge("C", "A")
+custom_gr.add_edge("C", "A")
 custom_gr.add_edge("E", "F")
 # custom_gr.add_edge("E", "A")
 custom_gr.add_edge("A", "G")
