@@ -17,6 +17,7 @@ class Graph:
             return True
         return False
     
+    # For an unweighted undirectional graph
     def add_edge(self, vertex1, vertex2):
         if vertex1 in self.g_dict.keys() and vertex2 in self.g_dict.keys():
             if vertex1 in self.g_dict[vertex2] and vertex2 in self.g_dict[vertex1]:
