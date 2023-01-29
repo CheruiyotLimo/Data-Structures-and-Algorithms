@@ -5,6 +5,7 @@ class Graph:
             g_dict = {}
         self.g_dict = g_dict
 
+# "BFS always uses a queue"
     def bfs(self, start, end) -> list:
         queue = [[start]]
         while queue:
