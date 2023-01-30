@@ -27,15 +27,19 @@ class DoubleLinkedList():
             self.head = node
         else:
             node = Node(prev = None, data = data, next = self.head)
-            # node.next = self.head
+            node.next = self.head
             self.head.prev = node
             self.head = node
+
     def add_to_end(self, data):
         itr = self.head
         while itr.next:
             itr = itr.next
         node = Node(prev = itr.data, data = data, next = None)
-        itr.next = node    
+        itr.next = node   
+        node.prev = itr 
+        self.tail = node
+
     def get_length(self):
         count = 0
         itr = self.head
@@ -63,6 +67,15 @@ class DoubleLinkedList():
     def remove_at(self, index):
         if index < 0 or index >= self.get_length():
             raise Exception("Index Error")
+        if index == 0:
+            x = self.head
+            self.head = self.head.next
+            self.head.next.prev = self.head
+            return x.data
+        if index == self.get_length():
+            self.tail = self.tail.prev
+            self.tail.prev.next = self.tail
+            return
         itr = self.head
         count = 0
         while itr:
