@@ -1,9 +1,15 @@
 from collections import defaultdict, deque
+import heapq
 x = defaultdict(list)
-x["a"] = [1, 3, 4]
-x["b"] = [1, 3, 4]
-x["c"] = [1, 3, 5]
+x["a"] = [100]
+x["b"] = [250]
+x["c"] = [135]
 
-del x["a"]
+y = []
 
-print(x)
+for i in x:
+    y.append(x[i][0])
+
+heapq.heapify(y)
+# print(heapq.heappop(y))
+print(y)
