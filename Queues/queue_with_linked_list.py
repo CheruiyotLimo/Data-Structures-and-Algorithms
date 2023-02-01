@@ -1,5 +1,5 @@
 #Need to import LL
-from ..double_linked_list import DoubleLinkedList
+from Practice.LinkedLists.double_linked_list import DoubleLinkedList
 class Queue2():
     def __init__(self):
         self.arr = DoubleLinkedList()
