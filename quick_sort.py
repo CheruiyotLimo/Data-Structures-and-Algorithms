@@ -27,7 +27,7 @@ def elshad_partition(start, end, arr):
     pivot_index = start
     swap_index = start
     for i in range(pivot_index+1, end+1):
-        if arr[i] < arr[pivot_index]:
+        if arr[i] < arr[pivot_index]:           # [12, 4, 56, 7, 23, 13, 20]
             swap_index += 1
             swapper(swap_index, i, arr)
     swapper(swap_index, pivot_index, arr)
