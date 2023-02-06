@@ -1,25 +1,13 @@
-class Team:
-    def __init__(self, name, avat):
-        self.name = name
-        self.avat = avat
+def fibonacci(n):
+    if n == 0:
+        return ValueError
+    if n == 1:
+        return 0
+    if n == 2:
+        return 1
+    else:
+        return fibonacci(n-1)+fibonacci(n-2)
 
 
-class Fixture:
-    def __init__(self, t1, t2):
-        self.t1 = t1
-        self.t2 = t2
-        self.score = []
-
-    def __str__(self):
-        return f"{self.t1.avat} v {self.t2.avat}"
-
-    def fixture_stadium(self):
-        return f"{self.t1.avat} at home"
-
-
-
-man = Team("Manchester", "MUN")
-ars = Team("Arsenal", "ARS")
-f = Fixture(man, ars)
-print(f)
-print(f.fixture_stadium())
+for i in range(20):
+    print(fibonacci(i))
